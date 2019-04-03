@@ -112,6 +112,24 @@ def query_object(module):
     return object_data.json()[0]
 
 
+def create(module):
+    """Create a new Alvao object given a template and parent node ID.
+
+    Returns JSON."""
+    header = _auth_header(module)
+    header.update(OBJECT_HEADER)
+    data = {'templateNodeId': module.params.get('template_node_id')}
+    create_response = _request(
+        module,
+        endpoint=OBJECT_ENDPOINT.format(module.params.get('parent_node_id')),
+        method='POST',
+        headers=header,
+        json=data
+    )
+
+    return create_response.json()
+
+
 def update(module):
     """Update specific Alvao object.
 
@@ -127,6 +145,22 @@ def update(module):
     )
 
     return update_response.status_code
+
+
+def delete(module):
+    """Delete an Alvao object.
+
+    Returns requests.Response.status_code."""
+    header = _auth_header(module)
+    header.update(OBJECT_HEADER)
+    delete_response = _request(
+        module,
+        endpoint=OBJECT_ENDPOINT.format(module.params.get('node_id')),
+        method='DELETE',
+        headers=header,
+    )
+
+    return delete_response.status_code
 
 
 def object_properties(data):

@@ -64,12 +64,12 @@ alvao_auth:
             type: int
             sample: 1799
         validate_certs:
-            desciption: If using https, validate SSL certificate
+            description: If using https, validate SSL certificate
             returned: success
             type: bool
             sample: True
         url:
-            desciption: Url used to establish authentication
+            description: Url used to establish authentication
             returned: success
             type: string
             sample: https://alvao.example.com
